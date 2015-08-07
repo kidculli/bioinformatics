@@ -1,0 +1,43 @@
+__author__ = 'KidCulli'
+from dnaresource import translate
+def main():
+    while True:
+        try:
+            file=input("Please enter name of dna file:")
+            f=open(file,"r")
+        except FileNotFoundError:
+            print ("Failed to open file %s"%(file))
+            continue
+        break
+    x=0
+    for x in range(3):
+        f.seek(x,0)
+        i=1
+        print ("ORF %d:"%(x+1))
+        while True:
+            codon=f.read(3)
+            if codon=="":
+                break
+            print (translate(codon),end='')
+            print ('-',end='')
+            if i%25==0:
+                print ('\n')
+            i+=1
+    f.seek(0,0)
+    string=f.read()
+    reverse=string[::-1]
+    i=1
+    for x in range (3):
+        print ("\nORF reversed %d:"%(x+1))
+        k=0+x
+        for w in range(int(len(reverse)/3)):
+            codon=reverse[k:k+3]
+            print (translate(codon),end='')
+            print ('-',end='')
+            if i%25==0:
+                print ('\n')
+            k+=3
+            i+=1
+    return 0
+
+main()
